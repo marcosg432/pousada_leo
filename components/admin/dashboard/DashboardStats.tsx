@@ -118,7 +118,16 @@ export default async function DashboardStats() {
                 <p className="text-xs text-gray-500 mt-1">{card.subtitle}</p>
               )}
             </div>
-          </CardWrapper>
+        )
+
+        return isNewReservations ? (
+          <Link key={index} href="/admin/reservas?status=pending&source=site" className="block">
+            {cardContent}
+          </Link>
+        ) : (
+          <div key={index}>
+            {cardContent}
+          </div>
         )
       })}
     </div>
