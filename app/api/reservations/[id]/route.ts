@@ -205,19 +205,22 @@ export async function DELETE(
       )
     }
 
-    // Verificar se há pagamentos completos (não permitir deletar se houver pagamentos)
-    const completedPayments = reservation.payments.filter(
-      (p) => p.status === 'completed'
-    )
-
-    if (completedPayments.length > 0) {
-      return NextResponse.json(
-        {
-          error:
-            'Não é possível deletar reserva com pagamentos confirmados. Cancele a reserva primeiro.',
-        },
-        { status: 400 }
+    // Permitir deletar reservas canceladas mesmo com pagamentos
+    // Para reservas não canceladas, verificar se há pagamentos completos
+    if (reservation.status !== 'cancelled') {
+      const completedPayments = reservation.payments.filter(
+        (p) => p.status === 'completed'
       )
+
+      if (completedPayments.length > 0) {
+        return NextResponse.json(
+          {
+            error:
+              'Não é possível deletar reserva com pagamentos confirmados. Cancele a reserva primeiro.',
+          },
+          { status: 400 }
+        )
+      }
     }
 
     // Deletar pagamentos pendentes primeiro (cascade)
