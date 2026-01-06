@@ -54,6 +54,7 @@ interface Reservation {
     recipient: string
     subject: string | null
     content: string
+    errorMessage?: string | null
     sentAt: string
   }>
 }
