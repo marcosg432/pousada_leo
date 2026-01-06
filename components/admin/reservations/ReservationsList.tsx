@@ -128,20 +128,20 @@ export default function ReservationsList() {
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden">
-      <div className="p-6 border-b">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="p-4 md:p-6 border-b">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 md:w-5 md:h-5" />
             <input
               type="text"
               placeholder="Buscar reservas..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full pl-9 md:pl-10 pr-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-            <Filter className="w-5 h-5" />
+          <button className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm md:text-base">
+            <Filter className="w-4 h-4 md:w-5 md:h-5" />
             <span>Filtros</span>
           </button>
         </div>
@@ -163,36 +163,36 @@ export default function ReservationsList() {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Hóspede
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Quarto
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Check-in
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Check-out
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Valor Total
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Pagamento
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Ações
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+          <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Hóspede
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                      Quarto
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                      Check-in
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                      Check-out
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                      Valor Total
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden xl:table-cell">
+                      Pagamento
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Ações
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
               {filteredReservations.map((reservation) => {
                 const isNewSiteReservation =
                   reservation.source === 'site' &&
@@ -207,46 +207,51 @@ export default function ReservationsList() {
                       isNewSiteReservation ? 'bg-yellow-50 border-l-4 border-yellow-400' : ''
                     }`}
                   >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-2">
-                        <div className="text-sm font-medium text-gray-900">
-                          {reservation.guest.name}
+                    <td className="px-3 md:px-6 py-3 md:py-4">
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <div className="text-xs md:text-sm font-medium text-gray-900">
+                            {reservation.guest.name}
+                          </div>
+                          {isNewSiteReservation && (
+                            <span className="px-1.5 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded">
+                              NOVO
+                            </span>
+                          )}
+                          {reservation.source === 'site' && (
+                            <span className="px-1.5 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded">
+                              SITE
+                            </span>
+                          )}
                         </div>
-                        {isNewSiteReservation && (
-                          <span className="px-2 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded">
-                            NOVO
-                          </span>
-                        )}
-                        {reservation.source === 'site' && (
-                          <span className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded">
-                            SITE
-                          </span>
-                        )}
+                        <div className="text-xs text-gray-500 sm:hidden">
+                          Quarto {reservation.room.number} • {format(new Date(reservation.checkIn), 'dd/MM/yyyy', { locale: ptBR })}
+                        </div>
                       </div>
                     </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">Quarto {reservation.room.number}</div>
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden sm:table-cell">
+                    <div className="text-xs md:text-sm text-gray-900">Quarto {reservation.room.number}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden md:table-cell">
+                    <div className="text-xs md:text-sm text-gray-900">
                       {format(new Date(reservation.checkIn), 'dd/MM/yyyy', { locale: ptBR })}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden lg:table-cell">
+                    <div className="text-xs md:text-sm text-gray-900">
                       {format(new Date(reservation.checkOut), 'dd/MM/yyyy', { locale: ptBR })}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-semibold text-gray-900">
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden lg:table-cell">
+                    <div className="text-xs md:text-sm font-semibold text-gray-900">
                       {new Intl.NumberFormat('pt-BR', {
                         style: 'currency',
                         currency: 'BRL',
                       }).format(reservation.totalPrice)}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm">
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden xl:table-cell">
+                    <div className="text-xs md:text-sm">
                       <div className="font-medium text-gray-900">
                         {new Intl.NumberFormat('pt-BR', {
                           style: 'currency',
@@ -268,7 +273,7 @@ export default function ReservationsList() {
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
                     <span
                       className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
                         reservation.status
@@ -277,14 +282,15 @@ export default function ReservationsList() {
                       {getStatusLabel(reservation.status)}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex items-center gap-4">
-                    <Link
-                      href={`/admin/reservas/${reservation.id}`}
-                      className="text-primary hover:text-primary-dark"
-                    >
-                      Ver detalhes
-                    </Link>
+                  <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/admin/reservas/${reservation.id}`}
+                        className="text-primary hover:text-primary-dark"
+                      >
+                        <span className="hidden sm:inline">Ver detalhes</span>
+                        <span className="sm:hidden">Ver</span>
+                      </Link>
                       <button
                         onClick={() =>
                           handleDelete(

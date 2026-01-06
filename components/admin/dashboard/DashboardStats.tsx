@@ -90,19 +90,19 @@ export default async function DashboardStats() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       {cards.map((card, index) => {
         const isNewReservations = card.title === 'Novas Reservas do Site'
         
         const cardContent = (
             <div
-              className={`bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition ${
+              className={`bg-white rounded-xl shadow-md p-4 md:p-6 hover:shadow-lg transition ${
                 isNewReservations ? 'border-2 border-yellow-400 cursor-pointer' : ''
               }`}
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 rounded-lg ${card.bgColor}`}>
-                  <card.icon className={`w-6 h-6 ${card.iconColor}`} />
+              <div className="flex items-center justify-between mb-3 md:mb-4">
+                <div className={`p-2 md:p-3 rounded-lg ${card.bgColor}`}>
+                  <card.icon className={`w-5 h-5 md:w-6 md:h-6 ${card.iconColor}`} />
                 </div>
                 {isNewReservations && (
                   <span className="px-2 py-1 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full">
@@ -110,10 +110,10 @@ export default async function DashboardStats() {
                   </span>
                 )}
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
                 {card.value}
               </h3>
-              <p className="text-sm text-gray-600">{card.title}</p>
+              <p className="text-xs md:text-sm text-gray-600">{card.title}</p>
               {card.subtitle && (
                 <p className="text-xs text-gray-500 mt-1">{card.subtitle}</p>
               )}
