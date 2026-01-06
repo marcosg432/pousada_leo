@@ -1,0 +1,108 @@
+// Schema alternativo usando SQLite (mais simples para desenvolvimento)
+// Para usar: copie este arquivo para schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  number      String   @unique
+  name        String
+  description String?
+  capacity    Int      @default(2)
+  price       Float
+  amenities   String   // JSON string para SQLite
+  images      String   // JSON string para SQLite
+  status      String   @default("available")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reservations Reservation[]
+
+  @@map("rooms")
+}
+
+model Guest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String
+  document  String?
+  address   String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reservations Reservation[]
+
+  @@map("guests")
+}
+
+model Reservation {
+  id          String   @id @default(cuid())
+  checkIn     DateTime
+  checkOut    DateTime
+  adults      Int      @default(2)
+  children    Int      @default(0)
+  status      String   @default("pending")
+  totalPrice  Float
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roomId   String
+  room     Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  guestId  String
+  guest    Guest  @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  payments Payment[]
+
+  @@map("reservations")
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  amount        Float
+  method        String
+  status        String   @default("pending")
+  transactionId String?
+  paidAt        DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+model Settings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+
+

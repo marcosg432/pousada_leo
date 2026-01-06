@@ -1,0 +1,100 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+
+export async function GET(request: NextRequest) {
+  try {
+    const reservations = await prisma.reservation.findMany({
+      include: {
+        room: {
+          select: {
+            id: true,
+            number: true,
+            name: true,
+          },
+        },
+        guest: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+
+    return NextResponse.json(reservations)
+  } catch (error) {
+    console.error('Error fetching reservations:', error)
+    return NextResponse.json(
+      { error: 'Erro ao buscar reservas' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const data = await request.json()
+
+    const totalPrice = data.totalPrice || (data.basePrice || 0) + (data.extraPrice || 0)
+    const minimumPayment = totalPrice * 0.5
+    const initialStatus = data.status || 'pending_payment'
+
+    // Se criar como confirmada pelo admin, pode ter pagamento inicial
+    const paidAmount = data.paidAmount || 0
+    const paidPercentage = totalPrice > 0 ? (paidAmount / totalPrice) * 100 : 0
+    const remainingAmount = totalPrice - paidAmount
+
+    // Validar se status confirmado requer pagamento mínimo
+    if (initialStatus === 'confirmed' && paidAmount < minimumPayment) {
+      return NextResponse.json(
+        {
+          error: `Para confirmar a reserva, é necessário pagar no mínimo ${new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(minimumPayment)}`,
+        },
+        { status: 400 }
+      )
+    }
+
+    const reservation = await prisma.reservation.create({
+      data: {
+        checkIn: new Date(data.checkIn),
+        checkOut: new Date(data.checkOut),
+        adults: data.adults || 2,
+        children: data.children || 0,
+        status: initialStatus,
+        totalPrice: totalPrice,
+        basePrice: data.basePrice || totalPrice,
+        extraPrice: data.extraPrice || 0,
+        minimumPayment: minimumPayment,
+        paidAmount: paidAmount,
+        paidPercentage: Math.round(paidPercentage * 100) / 100,
+        remainingAmount: remainingAmount,
+        notes: data.notes || null,
+        source: data.source || 'admin',
+        rulesAcceptedAt: data.rulesAccepted ? new Date() : (data.source === 'admin' ? null : undefined),
+        roomId: data.roomId,
+        guestId: data.guestId,
+      },
+      include: {
+        room: true,
+        guest: true,
+      },
+    })
+
+    return NextResponse.json(reservation, { status: 201 })
+  } catch (error) {
+    console.error('Error creating reservation:', error)
+    return NextResponse.json(
+      { error: 'Erro ao criar reserva' },
+      { status: 500 }
+    )
+  }
+}
+

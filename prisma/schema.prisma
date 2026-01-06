@@ -1,0 +1,179 @@
+// Schema usando SQLite (mais simples para desenvolvimento)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("admin") // admin, staff
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@map("users")
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  number      String   @unique
+  name        String
+  description String?
+  capacity    Int      @default(2)
+  price       Float    // Preço base para até 2 pessoas
+  type        String?  // frente, fundos
+  amenities   String   // JSON string para SQLite
+  images      String   // JSON string para SQLite
+  status      String   @default("available") // available, maintenance, occupied
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reservations Reservation[]
+  blockages    RoomBlockage[]
+
+  @@index([status])
+  @@index([number])
+  @@index([type])
+  @@map("rooms")
+}
+
+model Guest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String
+  document  String?
+  address   String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reservations Reservation[]
+
+  @@index([email])
+  @@index([phone])
+  @@map("guests")
+}
+
+model Reservation {
+  id              String   @id @default(cuid())
+  checkIn         DateTime
+  checkOut        DateTime
+  adults          Int      @default(2)
+  children        Int      @default(0)
+  status          String   @default("pending_payment") // pending_payment, confirmed, checked_in, checked_out, cancelled
+  totalPrice      Float    // Valor total da estadia (renomeado de totalAmount para manter compatibilidade)
+  basePrice       Float    // Preço base (diária × noites)
+  extraPrice      Float    @default(0) // Preço de pessoas extras
+  paidAmount      Float    @default(0) // Valor já pago
+  paidPercentage  Float    @default(0) // Percentual pago (0-100)
+  remainingAmount Float    @default(0) // Valor restante a pagar
+  minimumPayment  Float    @default(0) // Valor mínimo para confirmação (50% do total)
+  notes           String?
+  source          String   @default("admin") // admin, site
+  cancelledAt     DateTime?
+  cancelledReason String?
+  rescheduledFrom String? // ID da reserva original se foi reagendada
+  rulesAcceptedAt DateTime? // Data/hora em que o hóspede aceitou as regras
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  roomId   String
+  room     Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  guestId  String
+  guest    Guest  @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  payments Payment[]
+  messages MessageHistory[]
+
+  @@index([status])
+  @@index([checkIn])
+  @@index([checkOut])
+  @@index([roomId])
+  @@index([guestId])
+  @@index([source])
+  @@map("reservations")
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  amount        Float
+  method        String   // cash, credit_card, debit_card, pix, bank_transfer, boleto
+  status        String   @default("pending") // pending, completed, refunded
+  transactionId String?
+  paidAt        DateTime?
+  refundedAt    DateTime?
+  refundReason  String?
+  notes         String?  // Observações sobre o pagamento
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([reservationId])
+  @@index([method])
+  @@index([paidAt])
+  @@map("payments")
+}
+
+model RoomBlockage {
+  id          String   @id @default(cuid())
+  startDate   DateTime
+  endDate     DateTime
+  reason      String   // maintenance, event, other
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roomId   String
+  room     Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId])
+  @@index([startDate])
+  @@index([endDate])
+  @@map("room_blockages")
+}
+
+model Settings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model MessageHistory {
+  id            String   @id @default(cuid())
+  type          String   // reservation_created, payment_confirmed, reservation_confirmed, checkin_reminder, checkin_completed, reservation_cancelled
+  channel       String   @default("email") // email, whatsapp
+  status        String   @default("sent") // sent, failed, pending
+  recipient     String   // email ou telefone
+  subject       String?  // assunto (para email)
+  content       String   // conteúdo da mensagem
+  errorMessage  String?  // mensagem de erro se falhar
+  sentAt        DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+
+  @@index([reservationId])
+  @@index([type])
+  @@index([channel])
+  @@index([status])
+  @@index([sentAt])
+  @@map("message_history")
+}
