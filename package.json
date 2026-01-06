@@ -14,6 +14,7 @@
     "db:init": "tsx scripts/init-db.ts",
     "db:check": "tsx scripts/check-db-connection.ts",
     "db:update-suite-2": "tsx scripts/update-suite-2.ts",
+    "db:check-reservations": "tsx scripts/check-reservations.ts",
     "db:update-suite-1": "tsx scripts/update-suite-1.ts"
   },
   "dependencies": {
