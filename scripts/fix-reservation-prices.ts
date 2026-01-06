@@ -60,13 +60,14 @@ async function main() {
         )
 
         // Atualizar reserva
+        const minimumPayment = pricing.totalPrice * 0.5
         await prisma.reservation.update({
           where: { id: reservation.id },
           data: {
             totalPrice: pricing.totalPrice,
             basePrice: pricing.basePrice,
             extraPrice: pricing.extraPrice,
-            confirmationPrice: pricing.confirmationPrice,
+            minimumPayment: minimumPayment,
           },
         })
 
@@ -92,13 +93,14 @@ async function main() {
       )
 
       // Atualizar reserva
+      const minimumPayment = pricing.totalPrice * 0.5
       await prisma.reservation.update({
         where: { id: reservation.id },
         data: {
           totalPrice: pricing.totalPrice,
           basePrice: pricing.basePrice,
           extraPrice: pricing.extraPrice,
-          confirmationPrice: pricing.confirmationPrice,
+          minimumPayment: minimumPayment,
         },
       })
 
