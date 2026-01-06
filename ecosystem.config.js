@@ -2,13 +2,13 @@ module.exports = {
   apps: [{
     name: 'pousada-leo',
     script: 'node_modules/next/dist/bin/next',
-    args: 'start -p 3000',
+    args: 'start -p 3006',
     cwd: './',
     instances: 1,
     exec_mode: 'fork',
     env: {
       NODE_ENV: 'production',
-      PORT: 3000
+      PORT: 3006
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',

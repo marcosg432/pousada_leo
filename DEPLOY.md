@@ -32,14 +32,16 @@ ps aux | grep node | grep -v grep
 
 ## Passo 2: Escolher Porta
 
-O Next.js usa a porta 3000 por padrão. Se estiver ocupada, escolha outra (3001, 3002, etc.)
+⚠️ **PORTAS PROTEGIDAS (NÃO USAR):** 3000, 3001, 3002, 3003, 3004, 3005
 
-Edite o arquivo `ecosystem.config.js` e altere a porta se necessário:
+O projeto está configurado para usar a porta **3006** por padrão.
+
+Se precisar alterar, edite o arquivo `ecosystem.config.js`:
 
 ```javascript
-args: 'start -p 3001', // ou a porta escolhida
+args: 'start -p 3006', // ou outra porta disponível (3007, 3008, etc.)
 env: {
-  PORT: 3001 // mesma porta aqui
+  PORT: 3006 // mesma porta aqui
 }
 ```
 
