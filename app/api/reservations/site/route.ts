@@ -173,15 +173,6 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Disparar mensagem de reserva criada (aguardando pagamento)
-    try {
-      const { onReservationCreated } = await import('@/lib/message-service')
-      await onReservationCreated(reservation.id)
-    } catch (error) {
-      console.error('Erro ao enviar mensagem de reserva criada:', error)
-      // Não falha a criação da reserva se o envio de mensagem falhar
-    }
-
     // Criar reserva (usar datas com horários aplicados)
     const reservation = await prisma.reservation.create({
       data: reservationData,
