@@ -2,8 +2,8 @@
 // Gerencia histórico e dispara mensagens automaticamente
 
 import { prisma } from './prisma'
-import { sendReservationMessage, MessageType } from './email-service'
-import { MessageVariables } from './message-templates'
+import { sendReservationMessage } from './email-service'
+import { MessageType, MessageVariables } from './message-templates'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
 
