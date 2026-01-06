@@ -41,13 +41,21 @@ export default function ReservationsList() {
   const fetchReservations = async () => {
     try {
       setLoading(true)
+      setError(null)
       const response = await fetch('/api/reservations')
-      if (!response.ok) throw new Error('Erro ao carregar reservas')
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Erro desconhecido' }))
+        console.error('Erro na resposta:', response.status, errorData)
+        throw new Error(errorData.error || `Erro ${response.status}: ${response.statusText}`)
+      }
+      
       const data = await response.json()
+      console.log('Reservas recebidas:', data.length, data)
       setReservations(data)
-    } catch (err) {
-      setError('Erro ao carregar reservas')
-      console.error(err)
+    } catch (err: any) {
+      console.error('Erro ao carregar reservas:', err)
+      setError(err.message || 'Erro ao carregar reservas')
     } finally {
       setLoading(false)
     }
