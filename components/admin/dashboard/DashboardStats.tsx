@@ -93,13 +93,8 @@ export default async function DashboardStats() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {cards.map((card, index) => {
         const isNewReservations = card.title === 'Novas Reservas do Site'
-        const CardWrapper = isNewReservations ? Link : 'div'
-        const wrapperProps = isNewReservations
-          ? { href: '/admin/reservas?status=pending&source=site', className: 'block' }
-          : {}
-
-        return (
-          <CardWrapper key={index} {...wrapperProps}>
+        
+        const cardContent = (
             <div
               className={`bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition ${
                 isNewReservations ? 'border-2 border-yellow-400 cursor-pointer' : ''
