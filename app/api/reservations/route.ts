@@ -3,8 +3,22 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
   try {
+    console.log('🔍 Buscando reservas...')
     const reservations = await prisma.reservation.findMany({
-      include: {
+      select: {
+        id: true,
+        checkIn: true,
+        checkOut: true,
+        status: true,
+        totalPrice: true,
+        basePrice: true,
+        extraPrice: true,
+        paidAmount: true,
+        paidPercentage: true,
+        remainingAmount: true,
+        minimumPayment: true,
+        source: true,
+        createdAt: true,
         room: {
           select: {
             id: true,
@@ -26,11 +40,13 @@ export async function GET(request: NextRequest) {
       },
     })
 
+    console.log(`✅ Encontradas ${reservations.length} reservas`)
     return NextResponse.json(reservations)
-  } catch (error) {
-    console.error('Error fetching reservations:', error)
+  } catch (error: any) {
+    console.error('❌ Error fetching reservations:', error)
+    console.error('Detalhes:', error.message, error.stack)
     return NextResponse.json(
-      { error: 'Erro ao buscar reservas' },
+      { error: 'Erro ao buscar reservas', details: error.message },
       { status: 500 }
     )
   }

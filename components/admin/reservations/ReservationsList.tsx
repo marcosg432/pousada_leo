@@ -196,7 +196,7 @@ export default function ReservationsList() {
               {filteredReservations.map((reservation) => {
                 const isNewSiteReservation =
                   reservation.source === 'site' &&
-                  reservation.status === 'pending' &&
+                  (reservation.status === 'pending' || reservation.status === 'pending_payment') &&
                   new Date(reservation.createdAt) >
                     new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Últimos 7 dias
 
