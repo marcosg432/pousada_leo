@@ -211,7 +211,18 @@ export default function RoomsPreview() {
   )
 }
 
-function ImageModal({ roomId, initialIndex, rooms, onClose }: { roomId: number; initialIndex: number; rooms: typeof rooms; onClose: () => void }) {
+type Room = {
+  id: number
+  name: string
+  description: string
+  price: number
+  capacity: number
+  amenities: string[]
+  image: string
+  images: string[]
+}
+
+function ImageModal({ roomId, initialIndex, rooms, onClose }: { roomId: number; initialIndex: number; rooms: Room[]; onClose: () => void }) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
   const room = rooms.find((r) => r.id === roomId)
   
