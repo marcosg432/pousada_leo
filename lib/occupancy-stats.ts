@@ -93,7 +93,7 @@ export async function getOccupancyStats(
   })
 
   // Calcular quartos ocupados (último dia do período)
-  const occupiedRooms = await prisma.reservation.count({
+  const occupiedReservations = await prisma.reservation.findMany({
     where: {
       status: {
         in: ['confirmed', 'checked_in'],
@@ -111,11 +111,14 @@ export async function getOccupancyStats(
         },
       ],
     },
-    distinct: ['roomId'],
+    select: {
+      roomId: true,
+    },
   })
+  const occupiedRooms = new Set(occupiedReservations.map(r => r.roomId)).size
 
   // Calcular quartos bloqueados (último dia do período)
-  const blockedRooms = await prisma.roomBlockage.count({
+  const blockedRoomBlockages = await prisma.roomBlockage.findMany({
     where: {
       AND: [
         {
@@ -130,8 +133,11 @@ export async function getOccupancyStats(
         },
       ],
     },
-    distinct: ['roomId'],
+    select: {
+      roomId: true,
+    },
   })
+  const blockedRooms = new Set(blockedRoomBlockages.map(b => b.roomId)).size
 
   const availableRooms = totalRooms - occupiedRooms - blockedRooms
 
