@@ -19,3 +19,5 @@ echo ""
 echo "=== Verificando espaço em disco ==="
 df -h
 
+
+

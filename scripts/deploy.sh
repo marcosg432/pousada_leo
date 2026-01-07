@@ -56,3 +56,5 @@ echo -e "\n${YELLOW}📊 Status da aplicação:${NC}"
 pm2 list
 pm2 logs pousada-leo --lines 20
 
+
+

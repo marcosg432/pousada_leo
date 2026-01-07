@@ -40,7 +40,7 @@ export default function AboutPreview() {
           <div className="order-1 lg:order-2 relative">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80"
+                src="/rooms/suite-1/suite-1-5.jpg"
                 alt="Fachada da Pousada do Leô"
                 className="w-full h-full object-cover"
               />
@@ -54,6 +54,8 @@ export default function AboutPreview() {
     </section>
   )
 }
+
+
 
 
 

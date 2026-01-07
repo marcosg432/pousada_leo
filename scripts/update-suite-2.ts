@@ -37,10 +37,10 @@ async function main() {
         'Cobertas',
       ]),
       images: JSON.stringify([
+        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-1.jpeg',
         '/rooms/suite-2/suite-2-2.jpeg',
         '/rooms/suite-2/suite-2-3.jpeg',
-        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-5.jpeg',
         '/rooms/suite-2/suite-2-6.jpeg',
       ]),

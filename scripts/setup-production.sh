@@ -66,3 +66,5 @@ pm2 logs pousada-leo --lines 5
 echo ""
 echo "🌐 Aplicação disponível em: http://193.160.119.67:3006"
 
+
+

@@ -18,7 +18,12 @@ export default function ContactSection() {
               <Phone className="w-8 h-8" />
             </div>
             <h3 className="font-bold text-lg mb-2">Telefone</h3>
-            <p className="text-white/90">{phone}</p>
+            <a
+              href={`tel:${formattedPhone}`}
+              className="text-white/90 underline-offset-2 hover:underline"
+            >
+              {phone}
+            </a>
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition">

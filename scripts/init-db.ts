@@ -67,10 +67,10 @@ const rooms = [
       type: 'frente',
       amenities: ['WiFi', 'TV com Netflix', 'Ar condicionado', 'Ventilador', 'Frigobar', 'Micro-ondas', 'Banheiro privativo', 'Chuveiro quente', 'Lençóis', 'Toalhas', 'Travesseiros', 'Cobertas'],
       images: [
+        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-1.jpeg',
         '/rooms/suite-2/suite-2-2.jpeg',
         '/rooms/suite-2/suite-2-3.jpeg',
-        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-5.jpeg',
         '/rooms/suite-2/suite-2-6.jpeg',
       ],

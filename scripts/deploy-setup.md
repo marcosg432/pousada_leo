@@ -101,3 +101,5 @@ pm2 startup  # Para iniciar automaticamente no boot
 
 Se precisar de proxy reverso, configurar Nginx para apontar para a porta do Next.js.
 
+
+

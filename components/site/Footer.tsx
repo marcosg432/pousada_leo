@@ -4,6 +4,7 @@ import Image from 'next/image'
 
 export default function Footer() {
   const phone = process.env.NEXT_PUBLIC_WHATSAPP || '21964154637'
+  const formattedPhone = phone.replace(/\D/g, '')
 
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -49,7 +50,12 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contato</h4>
             <div className="flex items-center gap-3 text-gray-400">
               <Phone className="w-5 h-5" />
-              <span>{phone}</span>
+              <a
+                href={`tel:${formattedPhone}`}
+                className="hover:text-white transition underline-offset-2 hover:underline"
+              >
+                {phone}
+              </a>
             </div>
           </div>
         </div>
