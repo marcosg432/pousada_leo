@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p ${PORT:-3006}",
+    "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
@@ -18,7 +18,8 @@
     "db:update-suite-4": "tsx scripts/update-suite-4.ts",
     "db:remove-quarto-fundos": "tsx scripts/remove-quarto-fundos.ts",
     "db:check-reservations": "tsx scripts/check-reservations.ts",
-    "db:update-suite-1": "tsx scripts/update-suite-1.ts"
+    "db:update-suite-1": "tsx scripts/update-suite-1.ts",
+    "db:update-all": "tsx scripts/update-all-rooms.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
