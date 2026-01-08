@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { differenceInDays } from 'date-fns'
+import { differenceInDays, startOfDay } from 'date-fns'
 import { calculateReservationPrice } from '../lib/pricing'
 
 const prisma = new PrismaClient()
@@ -29,14 +29,11 @@ async function main() {
 
   for (const reservation of reservations) {
     try {
-      // Calcular número de noites
-      // Usar apenas as datas (sem horário) para calcular noites
-      const checkInDate = new Date(reservation.checkIn)
-      checkInDate.setHours(0, 0, 0, 0)
-      const checkOutDate = new Date(reservation.checkOut)
-      checkOutDate.setHours(0, 0, 0, 0)
-      
-      const nights = differenceInDays(checkOutDate, checkInDate)
+      // Calcular número de noites corretamente
+      // Usar startOfDay para garantir cálculo correto baseado apenas nas datas
+      const checkInDay = startOfDay(reservation.checkIn)
+      const checkOutDay = startOfDay(reservation.checkOut)
+      const nights = differenceInDays(checkOutDay, checkInDay)
       
       if (nights <= 0) {
         console.log(`⚠️  Reserva ${reservation.id}: Número de noites inválido (${nights})`)

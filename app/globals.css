@@ -39,6 +39,11 @@ a {
   text-decoration: none;
 }
 
+/* Fix for navigation links spacing */
+nav a {
+  display: inline-block;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

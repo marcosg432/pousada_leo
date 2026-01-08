@@ -20,14 +20,14 @@ async function main() {
     where: { id: room.id },
     data: {
       name: 'Suíte 1',
-      description: 'Acomodações Confortáveis: A Pousada do Leô em Mangaratiba oferece quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui geladeira, micro-ondas, TV e chaleira elétrica. Comodidades Convenientes: Os hóspedes se beneficiam de um serviço pago de traslado para o aeroporto, recepção 24 horas e serviços de streaming. A pousada possui um pátio interno e vista para uma rua tranquila, garantindo uma estadia pacífica.',
-      capacity: 8,
+      description: 'Acomodações Confortáveis: A Pousada do Leô em Mangaratiba oferece quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui frigobar, micro-ondas, TV e chaleira elétrica. Comodidades Convenientes: Os hóspedes se beneficiam de um serviço pago de traslado para o aeroporto, recepção 24 horas e serviços de streaming. A pousada possui um pátio interno e vista para uma rua tranquila, garantindo uma estadia pacífica.',
+      capacity: 5,
       amenities: JSON.stringify([
         'WiFi gratuito',
         'TV',
         'Ar condicionado',
         'Banheiro privativo',
-        'Geladeira',
+        'Frigobar',
         'Micro-ondas',
         'Chaleira elétrica',
         'Serviço de streaming',
@@ -53,7 +53,7 @@ async function main() {
 
   console.log('✅ Suíte 1 atualizada com sucesso!')
   console.log('   - Nome: Suíte 1')
-  console.log('   - Capacidade: 8 pessoas')
+  console.log('   - Capacidade: 5 pessoas')
   console.log('   - Imagens: 11 imagens adicionadas')
 }
 

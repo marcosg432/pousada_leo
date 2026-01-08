@@ -31,11 +31,11 @@ export default function Footer() {
               <Link href="/#quartos" className="text-gray-400 hover:text-white transition">
                 Quartos
               </Link>
-              <Link href="/sobre" className="text-gray-400 hover:text-white transition">
-                Sobre
-              </Link>
               <Link href="/galeria" className="text-gray-400 hover:text-white transition">
-                Galeria
+                Pontos Turísticos
+              </Link>
+              <Link href="/empresas" className="text-gray-400 hover:text-white transition">
+                Empresas
               </Link>
               <Link href="/contato" className="text-gray-400 hover:text-white transition">
                 Contato

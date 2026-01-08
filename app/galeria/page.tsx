@@ -15,9 +15,13 @@ export default function GaleriaPage() {
     { id: 3, src: '/locais-turisticos/praia-de-taperinha.webp', alt: 'Praia de Taperinha', category: 'Praias' },
     { id: 4, src: '/locais-turisticos/praia-do-guity.webp', alt: 'Praia do Guity', category: 'Praias' },
     { id: 5, src: '/locais-turisticos/Praia-Brava.jpg', alt: 'Praia Brava', category: 'Praias' },
-    { id: 6, src: '/locais-turisticos/praia-ibicui.webp', alt: 'Praia Ibicui', category: 'Praias' },
-    { id: 7, src: '/locais-turisticos/ibicui-praia.jpg', alt: 'Praia Ibicui', category: 'Praias' },
-    { id: 8, src: '/locais-turisticos/praia-do-saco.jpg', alt: 'Praia do Saco', category: 'Praias' },
+    { id: 6, src: '/locais-turisticos/praia-do-saco.jpg', alt: 'Praia do Saco', category: 'Praias' },
+    { id: 7, src: '/locais-turisticos/praia-da-ribeira.jpg', alt: 'Praia da Ribeira', category: 'Praias' },
+    { id: 8, src: '/locais-turisticos/praia-da-junqueira.jpg', alt: 'Praia da Junqueira', category: 'Praias' },
+    { id: 9, src: '/locais-turisticos/praia-do-sahy.jpg', alt: 'Praia do Sahy', category: 'Praias' },
+    { id: 10, src: '/locais-turisticos/praia-grande.jpg', alt: 'Praia Grande', category: 'Praias' },
+    { id: 11, src: '/locais-turisticos/cachoeiras-de-ingaibe.jpg', alt: 'Cachoeiras de Ingaíbe', category: 'Pontos Turísticos' },
+    { id: 12, src: '/locais-turisticos/cais-mangaratiba.webp', alt: 'Cais de Mangaratiba', category: 'Pontos Turísticos' },
   ]
 
   return (
@@ -29,7 +33,7 @@ export default function GaleriaPage() {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url(/locais-turisticos/praia-de-santo-antonio.jpg)',
+            backgroundImage: 'url(/decoracao/decoracao-2.jpeg)',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40"></div>
@@ -63,10 +67,9 @@ export default function GaleriaPage() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end">
-                  <div className="p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="font-semibold">{image.alt}</p>
-                    <p className="text-sm text-white/80">{image.category}</p>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                  <div className="text-center text-white opacity-100 group-hover:opacity-100 transition-opacity px-4">
+                    <p className="font-bold text-xl md:text-2xl drop-shadow-lg">{image.alt}</p>
                   </div>
                 </div>
               </div>

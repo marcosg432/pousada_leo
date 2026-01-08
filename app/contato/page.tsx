@@ -14,7 +14,7 @@ export default function ContatoPage() {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920&q=80)',
+            backgroundImage: 'url(/decoracao/decoracao-7.jpeg)',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40"></div>

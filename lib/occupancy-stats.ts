@@ -66,8 +66,9 @@ export async function getOccupancyStats(
 
   for (const reservation of reservations) {
     // Calcular noites dentro do período
-    const checkIn = reservation.checkIn > periodStart ? reservation.checkIn : periodStart
-    const checkOut = reservation.checkOut < periodEnd ? reservation.checkOut : periodEnd
+    // Usar startOfDay para garantir cálculo correto baseado apenas nas datas
+    const checkIn = reservation.checkIn > periodStart ? startOfDay(reservation.checkIn) : periodStart
+    const checkOut = reservation.checkOut < periodEnd ? startOfDay(reservation.checkOut) : periodEnd
     const nights = differenceInDays(checkOut, checkIn)
     
     soldNights += nights

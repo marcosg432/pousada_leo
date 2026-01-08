@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isRoomAvailable } from '@/lib/availability'
 import { validateDates } from '@/lib/date-helpers'
-import { differenceInDays } from 'date-fns'
+import { differenceInDays, startOfDay } from 'date-fns'
 import { calculateReservationPrice } from '@/lib/pricing'
 import { applyCheckInTime, applyCheckOutTime } from '@/lib/checkin-checkout'
 
@@ -87,8 +87,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Calcular número de noites usando date-fns
-    const nights = differenceInDays(checkOut, checkIn)
+    // Calcular número de noites corretamente
+    // Para hospedagem: check-in 08/01 e check-out 11/01 = 3 noites
+    // Usar startOfDay para garantir cálculo correto baseado apenas nas datas
+    const checkInDay = startOfDay(checkIn)
+    const checkOutDay = startOfDay(checkOut)
+    const nights = differenceInDays(checkOutDay, checkInDay)
     
     if (nights <= 0) {
       return NextResponse.json(

@@ -7,7 +7,7 @@ import WhatsAppButton from '@/components/site/WhatsAppButton'
 import { Calendar, Users, CheckCircle, ArrowRight, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { validateDates, formatISODate, getTodayNormalized, parseISODate } from '@/lib/date-helpers'
-import { differenceInDays } from 'date-fns'
+import { differenceInDays, startOfDay } from 'date-fns'
 import { calculateReservationPrice, formatCurrency } from '@/lib/pricing'
 import { validatePayment } from '@/lib/payment-helpers'
 import { getCheckInOutMessage } from '@/lib/checkin-checkout'
@@ -259,7 +259,15 @@ export default function ReservarPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[300px] flex items-center justify-center overflow-hidden mt-20 bg-gradient-to-br from-primary to-primary-dark">
+      <section className="relative h-[300px] flex items-center justify-center overflow-hidden mt-20">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/decoracao/decoracao-2.jpeg)',
+          }}
+        >
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
         <div className="relative z-10 text-center px-4 text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Fazer Reserva</h1>
           <p className="text-xl text-white/90">
@@ -414,7 +422,7 @@ export default function ReservarPage() {
                     const checkInDate = parseISODate(checkIn)
                     const checkOutDate = parseISODate(checkOut)
                     const nights = checkInDate && checkOutDate 
-                      ? differenceInDays(checkOutDate, checkInDate)
+                      ? differenceInDays(startOfDay(checkOutDate), startOfDay(checkInDate))
                       : 0
                     
                     // Calcular preços com nova lógica

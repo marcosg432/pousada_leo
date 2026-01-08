@@ -1,6 +1,3 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-
 export default function AboutPreview() {
   return (
     <section id="sobre" className="py-24 bg-gray-50">
@@ -29,13 +26,6 @@ export default function AboutPreview() {
                 criando memórias que durarão para sempre.
               </p>
             </div>
-            <Link
-              href="/sobre"
-              className="inline-flex items-center gap-2 mt-6 text-primary hover:text-primary-dark font-semibold text-lg transition group"
-            >
-              Conheça nossa história completa
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
           <div className="order-1 lg:order-2 relative">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">

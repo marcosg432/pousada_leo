@@ -5,7 +5,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url(/locais-turisticos/praia-do-guity.webp)',
+          backgroundImage: 'url(/decoracao/decoracao-4.jpeg)',
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
@@ -28,12 +28,6 @@ export default function Hero() {
             className="bg-accent hover:bg-accent-dark text-white px-10 py-4 rounded-full text-lg font-semibold transition-all shadow-xl hover:shadow-2xl transform hover:scale-105"
           >
             Fazer Reserva
-          </a>
-          <a
-            href="/sobre"
-            className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-10 py-4 rounded-full text-lg font-semibold transition-all border-2 border-white/30"
-          >
-            Conheça Mais
           </a>
         </div>
       </div>

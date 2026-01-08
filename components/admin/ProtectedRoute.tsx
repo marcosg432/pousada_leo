@@ -12,23 +12,36 @@ export default function ProtectedRoute({
   const pathname = usePathname()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [hasChecked, setHasChecked] = useState(false)
 
   useEffect(() => {
     // Não proteger a rota de login
     if (pathname === '/admin/login') {
       setIsAuthenticated(true)
       setIsLoading(false)
+      setHasChecked(true)
       return
     }
 
-    const user = localStorage.getItem('user')
-    if (!user) {
-      router.push('/admin/login')
-    } else {
-      setIsAuthenticated(true)
+    // Verificar autenticação apenas no cliente e apenas uma vez
+    if (typeof window !== 'undefined' && !hasChecked) {
+      const user = localStorage.getItem('user')
+      if (!user) {
+        setIsLoading(false)
+        setHasChecked(true)
+        router.replace('/admin/login')
+        return
+      } else {
+        setIsAuthenticated(true)
+        setIsLoading(false)
+        setHasChecked(true)
+      }
+    } else if (typeof window === 'undefined') {
+      // No servidor, apenas marcar como não autenticado
+      setIsLoading(false)
+      setHasChecked(true)
     }
-    setIsLoading(false)
-  }, [router, pathname])
+  }, [router, pathname, hasChecked])
 
   if (isLoading) {
     return (
@@ -41,7 +54,7 @@ export default function ProtectedRoute({
     )
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && pathname !== '/admin/login') {
     return null
   }
 

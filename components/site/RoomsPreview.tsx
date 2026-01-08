@@ -11,10 +11,10 @@ export default function RoomsPreview() {
     {
       id: 1,
       name: 'Suíte 1',
-      description: 'Acomodações Confortáveis: Quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui geladeira, micro-ondas, TV e chaleira elétrica.',
+      description: 'Acomodações Confortáveis: Quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui frigobar, micro-ondas, TV e chaleira elétrica.',
       price: 200,
-      capacity: 8,
-      amenities: ['WiFi', 'TV', 'Ar condicionado', 'Geladeira', 'Micro-ondas', 'Chaleira elétrica'],
+      capacity: 5,
+      amenities: ['WiFi', 'TV', 'Ar condicionado', 'Frigobar', 'Micro-ondas', 'Chaleira elétrica'],
       image: '/rooms/suite-1/suite-1-5.jpg',
       images: [
         '/rooms/suite-1/suite-1-5.jpg',

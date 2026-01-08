@@ -10,11 +10,11 @@ export default function QuartosPage() {
     {
       id: 1,
       name: 'Suíte 1',
-      description: 'Acomodações Confortáveis: Quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui geladeira, micro-ondas, TV e chaleira elétrica.',
-      fullDescription: 'Acomodações Confortáveis: A Pousada do Leô em Mangaratiba oferece quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui geladeira, micro-ondas, TV e chaleira elétrica. Comodidades Convenientes: Os hóspedes se beneficiam de um serviço pago de traslado para o aeroporto, recepção 24 horas e serviços de streaming. A pousada possui um pátio interno e vista para uma rua tranquila, garantindo uma estadia pacífica.',
+      description: 'Acomodações Confortáveis: Quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui frigobar, micro-ondas, TV e chaleira elétrica.',
+      fullDescription: 'Acomodações Confortáveis: A Pousada do Leô em Mangaratiba oferece quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui frigobar, micro-ondas, TV e chaleira elétrica. Comodidades Convenientes: Os hóspedes se beneficiam de um serviço pago de traslado para o aeroporto, recepção 24 horas e serviços de streaming. A pousada possui um pátio interno e vista para uma rua tranquila, garantindo uma estadia pacífica.',
       price: 200,
-      capacity: 8,
-      amenities: ['WiFi gratuito', 'TV', 'Ar condicionado', 'Banheiro privativo', 'Geladeira', 'Micro-ondas', 'Chaleira elétrica', 'Serviço de streaming', 'Recepção 24h', 'Pátio interno', 'Vista para rua tranquila'],
+      capacity: 5,
+      amenities: ['WiFi gratuito', 'TV', 'Ar condicionado', 'Banheiro privativo', 'Frigobar', 'Micro-ondas', 'Chaleira elétrica', 'Serviço de streaming', 'Recepção 24h', 'Pátio interno', 'Vista para rua tranquila'],
       image: '/rooms/suite-1/suite-1-5.jpg',
       images: [
         '/rooms/suite-1/suite-1-5.jpg',
@@ -49,32 +49,37 @@ export default function QuartosPage() {
     },
     {
       id: 3,
-      name: 'Suíte Familiar',
+      name: 'Suíte 3',
       description: 'Suíte espaçosa com cama extra, ideal para famílias que buscam conforto, espaço e comodidade para todos.',
-      fullDescription: 'A Suíte Familiar foi pensada especialmente para famílias, oferecendo espaço amplo e confortável para até 4 pessoas. Com cama extra, área de descanso e todas as comodidades necessárias, é perfeita para momentos em família.',
-      price: 280,
-      capacity: 4,
+      fullDescription: 'A Suíte 3 foi pensada especialmente para famílias, oferecendo espaço amplo e confortável para até 5 pessoas. Com cama extra, área de descanso e todas as comodidades necessárias, é perfeita para momentos em família.',
+      price: 190,
+      capacity: 5,
       amenities: ['WiFi gratuito', 'TV LED 43"', 'Ar condicionado', 'Varanda privativa', 'Banheiro privativo', 'Frigobar', 'Cama extra', 'Roupas de cama', 'Toalhas', 'Área de descanso'],
-      image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80',
+      image: '/rooms/suite-3/suite-3-5.jpeg',
       images: [
-        'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80',
-        'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80',
-        'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80',
+        '/rooms/suite-3/suite-3-5.jpeg',
+        '/rooms/suite-3/suite-3-1.jpeg',
+        '/rooms/suite-3/suite-3-2.jpeg',
+        '/rooms/suite-3/suite-3-3.jpeg',
       ],
     },
     {
       id: 4,
-      name: 'Suíte 3',
+      name: 'Suíte 4',
       description: 'Quarto aconchegante e moderno, ideal para casais ou pequenas famílias. Ambiente acolhedor com todas as comodidades necessárias.',
-      fullDescription: 'A Suíte 3 oferece um ambiente aconchegante e moderno, perfeito para casais ou pequenas famílias. Com decoração cuidadosa, cama de casal confortável e banheiro privativo, proporciona uma estadia tranquila e relaxante. Inclui todas as comodidades essenciais para seu conforto.',
-      price: 220,
-      capacity: 3,
+      fullDescription: 'A Suíte 4 oferece um ambiente aconchegante e moderno, perfeito para casais ou pequenas famílias. Com decoração cuidadosa, cama de casal confortável e banheiro privativo, proporciona uma estadia tranquila e relaxante. Inclui todas as comodidades essenciais para seu conforto.',
+      price: 190,
+      capacity: 5,
       amenities: ['WiFi gratuito', 'TV', 'Ar condicionado', 'Banheiro privativo', 'Frigobar', 'Micro-ondas', 'Cama de casal', 'Roupas de cama', 'Toalhas'],
-      image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+      image: '/rooms/suite-4/suite-4-5.jpeg',
       images: [
-        'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80',
-        'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
-        'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80',
+        '/rooms/suite-4/suite-4-5.jpeg',
+        '/rooms/suite-4/suite-4-1.jpeg',
+        '/rooms/suite-4/suite-4-2.jpeg',
+        '/rooms/suite-4/suite-4-3.jpeg',
+        '/rooms/suite-4/suite-4-4.jpeg',
+        '/rooms/suite-4/suite-4-6.jpeg',
+        '/rooms/suite-4/suite-4-7.jpeg',
       ],
     },
   ]
@@ -88,7 +93,7 @@ export default function QuartosPage() {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80)',
+            backgroundImage: 'url(/decoracao/decoracao-2.jpeg)',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40"></div>

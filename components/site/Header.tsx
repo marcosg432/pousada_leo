@@ -39,22 +39,22 @@ export default function Header() {
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/#quartos" className="text-gray-700 hover:text-primary transition font-medium">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            <Link href="/#quartos" className="text-gray-700 hover:text-primary transition font-medium whitespace-nowrap">
               Quartos
             </Link>
-            <Link href="/sobre" className="text-gray-700 hover:text-primary transition font-medium">
-              Sobre
+            <Link href="/galeria" className="text-gray-700 hover:text-primary transition font-medium whitespace-nowrap">
+              Pontos Turísticos
             </Link>
-            <Link href="/galeria" className="text-gray-700 hover:text-primary transition font-medium">
-              Galeria
+            <Link href="/empresas" className="text-gray-700 hover:text-primary transition font-medium whitespace-nowrap">
+              Empresas
             </Link>
-            <Link href="/contato" className="text-gray-700 hover:text-primary transition font-medium">
+            <Link href="/contato" className="text-gray-700 hover:text-primary transition font-medium whitespace-nowrap">
               Contato
             </Link>
             <Link
               href="/reservar"
-              className="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-full font-semibold transition shadow-lg hover:shadow-xl"
+              className="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-full font-semibold transition shadow-lg hover:shadow-xl whitespace-nowrap ml-2"
             >
               Reservar Agora
             </Link>
@@ -72,7 +72,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t animate-in slide-in-from-top">
+          <nav className="md:hidden py-4 border-t border-gray-200 animate-in slide-in-from-top">
             <div className="flex flex-col space-y-4">
               <Link
                 href="/#quartos"
@@ -82,18 +82,18 @@ export default function Header() {
                 Quartos
               </Link>
               <Link
-                href="/sobre"
-                className="text-gray-700 hover:text-primary transition font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sobre
-              </Link>
-              <Link
                 href="/galeria"
                 className="text-gray-700 hover:text-primary transition font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Galeria
+                Pontos Turísticos
+              </Link>
+              <Link
+                href="/empresas"
+                className="text-gray-700 hover:text-primary transition font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Empresas
               </Link>
               <Link
                 href="/contato"

@@ -38,11 +38,11 @@ const rooms = [
     {
       number: '101',
       name: 'Suíte 1',
-      description: 'Acomodações Confortáveis: A Pousada do Leô em Mangaratiba oferece quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui geladeira, micro-ondas, TV e chaleira elétrica. Comodidades Convenientes: Os hóspedes se beneficiam de um serviço pago de traslado para o aeroporto, recepção 24 horas e serviços de streaming. A pousada possui um pátio interno e vista para uma rua tranquila, garantindo uma estadia pacífica.',
-      capacity: 8,
+      description: 'Acomodações Confortáveis: A Pousada do Leô em Mangaratiba oferece quartos familiares com banheiros privativos, ar-condicionado e WiFi gratuito. Cada quarto inclui frigobar, micro-ondas, TV e chaleira elétrica. Comodidades Convenientes: Os hóspedes se beneficiam de um serviço pago de traslado para o aeroporto, recepção 24 horas e serviços de streaming. A pousada possui um pátio interno e vista para uma rua tranquila, garantindo uma estadia pacífica.',
+      capacity: 5,
       price: 200, // Preço base para até 2 pessoas
       type: 'frente',
-      amenities: ['WiFi gratuito', 'TV', 'Ar condicionado', 'Banheiro privativo', 'Geladeira', 'Micro-ondas', 'Chaleira elétrica', 'Serviço de streaming', 'Recepção 24h', 'Pátio interno', 'Vista para rua tranquila'],
+      amenities: ['WiFi gratuito', 'TV', 'Ar condicionado', 'Banheiro privativo', 'Frigobar', 'Micro-ondas', 'Chaleira elétrica', 'Serviço de streaming', 'Recepção 24h', 'Pátio interno', 'Vista para rua tranquila'],
       images: [
         '/rooms/suite-1/suite-1-5.jpg',
         '/rooms/suite-1/suite-1-1.jpg',
@@ -77,36 +77,38 @@ const rooms = [
       status: 'available',
     },
     {
-      number: '103',
-      name: 'Quarto Fundos',
-      description: 'Quarto tranquilo com janela para o corredor interno',
-      capacity: 2,
-      price: 180, // Preço base para até 2 pessoas
-      type: 'fundos',
-      amenities: ['WiFi', 'TV', 'Ar condicionado'],
-      images: [],
-      status: 'available',
-    },
-    {
       number: '205',
-      name: 'Suíte Familiar',
-      description: 'Suíte espaçosa perfeita para famílias',
-      capacity: 4,
-      price: 280, // Preço base para até 2 pessoas
+      name: 'Suíte 3',
+      description: 'Suíte espaçosa com cama extra, ideal para famílias que buscam conforto, espaço e comodidade para todos.',
+      capacity: 5,
+      price: 190, // Preço base para até 2 pessoas
       type: 'frente',
-      amenities: ['WiFi', 'TV', 'Ar condicionado', 'Varanda', 'Frigobar'],
-      images: [],
+      amenities: ['WiFi gratuito', 'TV LED 43"', 'Ar condicionado', 'Varanda privativa', 'Banheiro privativo', 'Frigobar', 'Cama extra', 'Roupas de cama', 'Toalhas', 'Área de descanso'],
+      images: [
+        '/rooms/suite-3/suite-3-5.jpeg',
+        '/rooms/suite-3/suite-3-1.jpeg',
+        '/rooms/suite-3/suite-3-2.jpeg',
+        '/rooms/suite-3/suite-3-3.jpeg',
+      ],
       status: 'available',
     },
     {
       number: '104',
-      name: 'Suíte 3',
+      name: 'Suíte 4',
       description: 'Quarto aconchegante e moderno, ideal para casais ou pequenas famílias. Ambiente acolhedor com todas as comodidades necessárias para uma estadia confortável.',
-      capacity: 3,
-      price: 220, // Preço base para até 2 pessoas
+      capacity: 5,
+      price: 190, // Preço base para até 2 pessoas
       type: 'frente',
       amenities: ['WiFi gratuito', 'TV', 'Ar condicionado', 'Banheiro privativo', 'Frigobar', 'Micro-ondas', 'Cama de casal', 'Roupas de cama', 'Toalhas'],
-      images: [],
+      images: [
+        '/rooms/suite-4/suite-4-5.jpeg',
+        '/rooms/suite-4/suite-4-1.jpeg',
+        '/rooms/suite-4/suite-4-2.jpeg',
+        '/rooms/suite-4/suite-4-3.jpeg',
+        '/rooms/suite-4/suite-4-4.jpeg',
+        '/rooms/suite-4/suite-4-6.jpeg',
+        '/rooms/suite-4/suite-4-7.jpeg',
+      ],
       status: 'available',
     },
   ]
