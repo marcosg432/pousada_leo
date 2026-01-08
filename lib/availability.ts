@@ -11,13 +11,25 @@ export async function getAvailableRooms(checkIn: Date, checkOut: Date) {
   const requestedCheckOut = applyCheckOutTime(startOfDay(checkOut))
 
   // Buscar todos os quartos disponíveis (status = available)
-  const allRooms = await prisma.room.findMany({
+  const allRoomsData = await prisma.room.findMany({
     where: {
       status: 'available',
     },
     orderBy: {
       number: 'asc',
     },
+  })
+
+  // Converter JSON strings para arrays
+  const { parseRoomData } = await import('./room-helpers')
+  const allRooms = allRoomsData.map(parseRoomData)
+
+  // Ordenar por nome para garantir ordem correta: Suíte 1, 2, 3, 4
+  const sortedRooms = allRooms.sort((a, b) => {
+    // Extrair número do nome (ex: "Suíte 1" -> 1, "Suíte 2" -> 2)
+    const numA = parseInt(a.name.match(/\d+/)?.[0] || '999')
+    const numB = parseInt(b.name.match(/\d+/)?.[0] || '999')
+    return numA - numB
   })
 
   // Buscar reservas que conflitam com o período
@@ -78,8 +90,8 @@ export async function getAvailableRooms(checkIn: Date, checkOut: Date) {
     conflictingBlockages.map((b) => b.roomId)
   )
 
-  // Filtrar quartos disponíveis (não ocupados e não bloqueados)
-  const availableRooms = allRooms.filter(
+  // Filtrar quartos disponíveis (não ocupados e não bloqueados) e manter ordenação
+  const availableRooms = sortedRooms.filter(
     (room) => !occupiedRoomIds.has(room.id) && !blockedRoomIds.has(room.id)
   )
 

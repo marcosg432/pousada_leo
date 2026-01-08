@@ -13,7 +13,15 @@ export async function GET(request: NextRequest) {
     // Converter JSON strings para arrays
     const parsedRooms = rooms.map(parseRoomData)
 
-    return NextResponse.json(parsedRooms)
+    // Ordenar por nome para garantir ordem correta: Suíte 1, 2, 3, 4
+    const sortedRooms = parsedRooms.sort((a, b) => {
+      // Extrair número do nome (ex: "Suíte 1" -> 1, "Suíte 2" -> 2)
+      const numA = parseInt(a.name.match(/\d+/)?.[0] || '999')
+      const numB = parseInt(b.name.match(/\d+/)?.[0] || '999')
+      return numA - numB
+    })
+
+    return NextResponse.json(sortedRooms)
   } catch (error) {
     console.error('Error fetching rooms:', error)
     return NextResponse.json(
