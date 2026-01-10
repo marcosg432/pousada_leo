@@ -10,9 +10,12 @@ export async function getDashboardStats() {
   const monthStart = startOfMonth(now)
   const monthEnd = endOfMonth(now)
 
-  // Reservas do dia
+  // Reservas do dia (não canceladas)
   const reservationsToday = await prisma.reservation.count({
     where: {
+      status: {
+        not: 'cancelled', // Não contar reservas canceladas
+      },
       OR: [
         {
           checkIn: {
@@ -36,9 +39,12 @@ export async function getDashboardStats() {
     },
   })
 
-  // Reservas do mês
+  // Reservas do mês (não canceladas)
   const reservationsMonth = await prisma.reservation.count({
     where: {
+      status: {
+        not: 'cancelled', // Não contar reservas canceladas
+      },
       createdAt: {
         gte: monthStart,
         lte: monthEnd,
@@ -232,6 +238,11 @@ export async function getDashboardStats() {
 
 export async function getRecentReservations(limit = 5) {
   const reservations = await prisma.reservation.findMany({
+    where: {
+      status: {
+        not: 'cancelled', // Não mostrar reservas canceladas no dashboard
+      },
+    },
     take: limit,
     orderBy: {
       createdAt: 'desc',
@@ -267,6 +278,9 @@ export async function getTodayReservations() {
 
   const reservations = await prisma.reservation.findMany({
     where: {
+      status: {
+        not: 'cancelled', // Não mostrar reservas canceladas no dashboard
+      },
       OR: [
         {
           checkIn: {
