@@ -163,11 +163,14 @@ export default function RegrasPage() {
                 <p>
                   Os quartos possuem roupas de cama, toalhas e cobertas.
                 </p>
-                <p>
-                  Limpeza durante a estadia deve ser solicitada com antecedência.
+                <p className="font-semibold">
+                  Não há limpeza diária automática.
                 </p>
                 <p>
-                  O serviço ocorre entre 12h e 14h e custa R$ 30.
+                  A limpeza durante a estadia deve ser solicitada com antecedência e custa R$ 30,00.
+                </p>
+                <p>
+                  O serviço ocorre entre 12h e 14h.
                 </p>
                 <p>
                   Troca apenas de roupas de cama e toalhas é gratuita.
@@ -301,6 +304,12 @@ export default function RegrasPage() {
                 </p>
                 <p>
                   Os quartos possuem frigobar, micro-ondas e jarra elétrica.
+                </p>
+                <p>
+                  Os hóspedes podem trazer o que quiser e consumir no quarto.
+                </p>
+                <p>
+                  Há padaria e mercado próximo.
                 </p>
                 <p>
                   Comércio próximo disponível.

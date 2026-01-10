@@ -78,6 +78,16 @@ export async function POST(request: NextRequest) {
     // Validar capacidade do quarto
     const adults = data.adults || 2
     const children = data.children || 0
+    const childrenAges: number[] = data.childrenAges || []
+    
+    // Validar se o número de idades corresponde ao número de crianças
+    if (children > 0 && childrenAges.length > 0 && childrenAges.length !== children) {
+      return NextResponse.json(
+        { error: 'O número de idades informadas não corresponde ao número de crianças' },
+        { status: 400 }
+      )
+    }
+    
     const totalPeople = adults + children
     
     if (totalPeople > room.capacity) {
@@ -102,11 +112,14 @@ export async function POST(request: NextRequest) {
     }
     
     // Calcular preços com nova lógica (base + extras)
+    // Considera idades das crianças: crianças até 5 anos não pagam
     const pricing = calculateReservationPrice(
       room.price,
       nights,
       adults,
-      children
+      children,
+      50,
+      childrenAges
     )
 
     if (pricing.totalPrice <= 0) {

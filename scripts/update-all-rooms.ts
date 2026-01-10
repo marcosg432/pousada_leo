@@ -46,17 +46,16 @@ async function main() {
             'Vista para rua tranquila',
           ]),
           images: JSON.stringify([
-            '/rooms/suite-1/suite-1-5.jpg',
             '/rooms/suite-1/suite-1-1.jpg',
             '/rooms/suite-1/suite-1-2.jpg',
             '/rooms/suite-1/suite-1-3.jpg',
             '/rooms/suite-1/suite-1-4.jpg',
+            '/rooms/suite-1/suite-1-5.jpg',
             '/rooms/suite-1/suite-1-6.jpg',
             '/rooms/suite-1/suite-1-7.jpg',
             '/rooms/suite-1/suite-1-8.jpg',
             '/rooms/suite-1/suite-1-9.jpg',
             '/rooms/suite-1/suite-1-10.jpg',
-            '/rooms/suite-1/suite-1-11.jpg',
           ]),
         },
       })
@@ -158,4 +157,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
+
 

@@ -34,6 +34,7 @@ export default function ReservarPage() {
   const [checkOut, setCheckOut] = useState('')
   const [adults, setAdults] = useState(2)
   const [children, setChildren] = useState(0)
+  const [childrenAges, setChildrenAges] = useState<number[]>([])
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null)
   const [guestName, setGuestName] = useState('')
   const [guestPhone, setGuestPhone] = useState('')
@@ -122,7 +123,7 @@ export default function ReservarPage() {
   }
 
   const handleSelectRoom = (room: Room) => {
-    // Validar capacidade do quarto
+    // Validar capacidade do quarto (considera todas as pessoas, incluindo crianças que não pagam)
     const totalPeople = adults + children
     if (totalPeople > room.capacity) {
       setError(`Este quarto acomoda no máximo ${room.capacity} pessoas. Você selecionou ${totalPeople} pessoas.`)
@@ -166,6 +167,7 @@ export default function ReservarPage() {
           checkOut: formatISODate(validation.checkOutDate),
           adults,
           children,
+          childrenAges: childrenAges.length > 0 ? childrenAges : undefined,
           roomId: selectedRoom.id,
           guest: {
             name: guestName,
@@ -357,9 +359,54 @@ export default function ReservarPage() {
                     type="number"
                     min="0"
                     value={children}
-                    onChange={(e) => setChildren(parseInt(e.target.value) || 0)}
+                    onChange={(e) => {
+                      const count = parseInt(e.target.value) || 0
+                      setChildren(count)
+                      // Ajustar array de idades quando o número de crianças mudar
+                      if (count > childrenAges.length) {
+                        // Adicionar novas idades (padrão: 0)
+                        setChildrenAges([...childrenAges, ...Array(count - childrenAges.length).fill(0)])
+                      } else if (count < childrenAges.length) {
+                        // Remover idades extras
+                        setChildrenAges(childrenAges.slice(0, count))
+                      }
+                    }}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
+                  {children > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <p className="text-xs text-gray-600 mb-2">
+                        Informe a idade de cada criança (crianças até 5 anos não pagam):
+                      </p>
+                      {Array.from({ length: children }).map((_, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <label className="text-sm text-gray-700 w-24">
+                            Criança {index + 1}:
+                          </label>
+                          <input
+                            type="number"
+                            min="0"
+                            max="17"
+                            value={childrenAges[index] ?? 0}
+                            onChange={(e) => {
+                              const newAges = [...childrenAges]
+                              newAges[index] = parseInt(e.target.value) || 0
+                              setChildrenAges(newAges)
+                            }}
+                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Idade"
+                          />
+                          <span className="text-xs text-gray-500">
+                            {childrenAges[index] > 0 && childrenAges[index] <= 5 ? (
+                              <span className="text-green-600 font-medium">Gratuito</span>
+                            ) : childrenAges[index] > 5 ? (
+                              <span className="text-orange-600 font-medium">Paga</span>
+                            ) : null}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -425,12 +472,14 @@ export default function ReservarPage() {
                       ? differenceInDays(startOfDay(checkOutDate), startOfDay(checkInDate))
                       : 0
                     
-                    // Calcular preços com nova lógica
+                    // Calcular preços com nova lógica (considera idades das crianças)
                     const pricing = calculateReservationPrice(
                       room.price,
                       nights,
                       adults,
-                      children
+                      children,
+                      50,
+                      childrenAges
                     )
 
                     return (
@@ -487,14 +536,35 @@ export default function ReservarPage() {
                                   </span>
                                   <span className="font-medium">{formatCurrency(pricing.basePrice)}</span>
                                 </div>
-                                {pricing.extraPrice > 0 && (
-                                  <div className="flex justify-between">
-                                    <span className="text-gray-600">
-                                      Pessoas extras ({adults + children - 2} × R$ 50,00 × {nights} {nights === 1 ? 'dia' : 'dias'})
-                                    </span>
-                                    <span className="font-medium">{formatCurrency(pricing.extraPrice)}</span>
-                                  </div>
-                                )}
+                                {(() => {
+                                  const payingChildren = childrenAges.length > 0 
+                                    ? childrenAges.filter(age => age > 5).length 
+                                    : children
+                                  const totalPaying = adults + payingChildren
+                                  const extras = Math.max(0, totalPaying - 2)
+                                  const freeChildren = childrenAges.length > 0 
+                                    ? childrenAges.filter(age => age > 0 && age <= 5).length 
+                                    : 0
+                                  
+                                  return (
+                                    <>
+                                      {pricing.extraPrice > 0 && (
+                                        <div className="flex justify-between">
+                                          <span className="text-gray-600">
+                                            Pessoas extras ({extras} × R$ 50,00 × {nights} {nights === 1 ? 'dia' : 'dias'})
+                                          </span>
+                                          <span className="font-medium">{formatCurrency(pricing.extraPrice)}</span>
+                                        </div>
+                                      )}
+                                      {freeChildren > 0 && (
+                                        <div className="flex justify-between text-green-600 text-sm">
+                                          <span>{freeChildren} criança(s) até 5 anos: Gratuito</span>
+                                          <span className="font-medium">R$ 0,00</span>
+                                        </div>
+                                      )}
+                                    </>
+                                  )
+                                })()}
                                 <div className="border-t border-gray-300 pt-2 mt-2 flex justify-between">
                                   <span className="font-semibold text-gray-900">Total</span>
                                   <span className="font-bold text-primary text-lg">{formatCurrency(pricing.totalPrice)}</span>
@@ -877,6 +947,12 @@ export default function ReservarPage() {
                     setGuestPhone('')
                     setGuestEmail('')
                     setGuestNotes('')
+                    setCheckIn('')
+                    setCheckOut('')
+                    setAdults(2)
+                    setChildren(0)
+                    setChildrenAges([])
+                    setRulesAccepted(false)
                   }}
                   className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded-lg font-semibold transition"
                 >

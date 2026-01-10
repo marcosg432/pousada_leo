@@ -43,6 +43,12 @@ async function main() {
         '/rooms/suite-2/suite-2-3.jpeg',
         '/rooms/suite-2/suite-2-5.jpeg',
         '/rooms/suite-2/suite-2-6.jpeg',
+        '/rooms/suite-2/suite-2-7.jpeg',
+        '/rooms/suite-2/suite-2-8.jpeg',
+        '/rooms/suite-2/suite-2-9.jpeg',
+        '/rooms/suite-2/suite-2-10.jpeg',
+        '/rooms/suite-2/suite-2-11.jpeg',
+        '/rooms/suite-2/suite-2-12.jpeg',
       ]),
     },
   })
@@ -50,7 +56,7 @@ async function main() {
   console.log('✅ Suíte 2 atualizada com sucesso!')
   console.log('   - Nome: Suíte 2')
   console.log('   - Capacidade: 6 pessoas')
-  console.log('   - Imagens: 6 imagens adicionadas')
+  console.log('   - Imagens: 12 imagens adicionadas')
 }
 
 main()

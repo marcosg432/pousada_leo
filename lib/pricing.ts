@@ -15,22 +15,30 @@ export interface PricingBreakdown {
  * @param basePricePerNight Preço base da diária (válido para até 2 pessoas)
  * @param nights Número de noites
  * @param adults Número de adultos
- * @param children Número de crianças (consideradas como pessoas extras)
+ * @param children Número de crianças (para compatibilidade, use childrenAges quando disponível)
  * @param extraPersonPrice Preço por pessoa extra por dia (padrão: R$ 50)
+ * @param childrenAges Array com as idades das crianças (crianças até 5 anos não pagam)
  */
 export function calculateReservationPrice(
   basePricePerNight: number,
   nights: number,
   adults: number = 2,
   children: number = 0,
-  extraPersonPrice: number = 50
+  extraPersonPrice: number = 50,
+  childrenAges: number[] = []
 ): PricingBreakdown {
   // Preço base (diária × noites)
   const basePrice = basePricePerNight * nights
 
+  // Contar crianças que pagam (acima de 5 anos)
+  const payingChildren = childrenAges.length > 0
+    ? childrenAges.filter(age => age > 5).length
+    : children // Se não houver idades, considerar todas as crianças como pagantes
+
   // Calcular pessoas extras (acima de 2)
-  const totalPeople = adults + children
-  const extraPeople = Math.max(0, totalPeople - 2)
+  // Considera adultos + crianças que pagam (acima de 5 anos)
+  const totalPayingPeople = adults + payingChildren
+  const extraPeople = Math.max(0, totalPayingPeople - 2)
 
   // Preço de pessoas extras (por pessoa por dia)
   const extraPrice = extraPeople * extraPersonPrice * nights

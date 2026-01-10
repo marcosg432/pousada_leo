@@ -81,69 +81,83 @@ export default function EmpresasPage() {
             <Building2 className="w-8 h-8" />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Hospedagem Estratégica Próxima ao Cais da Barca para Ilha Grande
+            Hospedagem para Empresas e Prestadores de Serviço
           </h1>
           <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed">
-            Localização privilegiada para quem precisa de praticidade e economia de tempo. 
-            Ideal para hóspedes que embarcam cedo e empresas que atuam na região.
+            Solução completa para empresas que precisam de hospedagem estratégica na região de Mangaratiba
           </p>
         </div>
       </section>
 
-      {/* Proximidade do Cais */}
-      <section className="py-20 bg-white">
+      {/* Seção Vale Terminal Ilha Guaíba - Destacada */}
+      <section className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
-                <MapPin size={20} />
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full mb-6">
+                <Building2 size={20} />
                 <span className="font-semibold">Localização Estratégica</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Poucos Minutos do Cais de Embarque
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Casa da Vale / Terminal da Vale (Ilha Guaíba)
               </h2>
-              <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+              <div className="space-y-4 text-lg text-white/95 leading-relaxed">
                 <p>
-                  A Pousada do Leô está estrategicamente localizada a poucos minutos do cais de embarque 
-                  de Conceição de Jacareí, oferecendo a solução ideal para quem precisa embarcar 
-                  para a Ilha Grande pela manhã.
+                  A Pousada do Leô está estrategicamente localizada a aproximadamente 1 minuto do 
+                  Casa da Vale / Terminal da Vale (Ilha Guaíba), oferecendo a solução ideal para 
+                  colaboradores de empresas e equipes técnicas que precisam embarcar cedo.
                 </p>
-                <div className="space-y-3 mt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                <div className="space-y-4 mt-8">
+                  <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Economia de Tempo</h3>
-                      <p className="text-gray-600">Evite deslocamentos longos de madrugada. Acorde próximo ao ponto de embarque.</p>
+                      <h3 className="font-semibold text-white mb-1 text-xl">Economia de Tempo</h3>
+                      <p className="text-white/90">Evite deslocamentos longos de madrugada. Acorde próximo ao terminal de embarque.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                  <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Praticidade</h3>
-                      <p className="text-gray-600">Ideal para quem pega a barca pela manhã, sem necessidade de acordar muito cedo.</p>
+                      <h3 className="font-semibold text-white mb-1 text-xl">Praticidade</h3>
+                      <p className="text-white/90">Ideal para equipes que embarcam pela manhã, sem necessidade de acordar muito cedo ou enfrentar trânsito.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                  <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Conforto e Segurança</h3>
-                      <p className="text-gray-600">Descanse tranquilamente sabendo que está próximo ao seu destino final.</p>
+                      <h3 className="font-semibold text-white mb-1 text-xl">Conforto e Segurança</h3>
+                      <p className="text-white/90">Descanse tranquilamente sabendo que está próximo ao ponto de embarque, ideal para colaboradores de empresas.</p>
                     </div>
                   </div>
+                </div>
+                <div className="mt-8 pt-6 border-t border-white/20">
+                  <p className="text-white/90 font-medium">
+                    Localização privilegiada para empresas que precisam de praticidade e economia de tempo. 
+                    Ideal para equipes técnicas, colaboradores e prestadores de serviço que embarcam cedo para Ilha Guaíba.
+                  </p>
                 </div>
               </div>
             </div>
             <div className="relative">
-              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
                 <Image
-                  src="/locais-turisticos/cais-mangaratiba.webp"
-                  alt="Cais de embarque para Ilha Grande"
+                  src="/empresas/vale-terminal-ilha-guaiba.jpg"
+                  alt="Casa da Vale / Terminal da Vale (Ilha Guaíba)"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="w-5 h-5 text-white" />
+                    <span className="font-semibold">Casa da Vale / Terminal da Vale (Ilha Guaíba)</span>
+                  </div>
+                  <p className="text-white/90 text-sm">
+                    Aproximadamente 1 minuto da Pousada do Leô
+                  </p>
+                </div>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/10 rounded-full blur-3xl -z-10"></div>
             </div>
           </div>
         </div>
