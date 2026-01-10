@@ -3,6 +3,10 @@ import RecentReservations from '@/components/admin/dashboard/RecentReservations'
 import TodayReservations from '@/components/admin/dashboard/TodayReservations'
 import OccupancyChart from '@/components/admin/dashboard/OccupancyChart'
 
+// Forçar revalidação dinâmica para evitar cache
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default function AdminDashboard() {
   return (
     <div className="space-y-4 md:space-y-6">

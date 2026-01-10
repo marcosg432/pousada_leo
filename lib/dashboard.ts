@@ -237,90 +237,126 @@ export async function getDashboardStats() {
 }
 
 export async function getRecentReservations(limit = 5) {
-  const reservations = await prisma.reservation.findMany({
-    where: {
-      status: {
-        not: 'cancelled', // Não mostrar reservas canceladas no dashboard
-      },
-    },
-    take: limit,
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      guest: {
-        select: {
-          name: true,
+  try {
+    const reservations = await prisma.reservation.findMany({
+      where: {
+        status: {
+          not: 'cancelled', // Não mostrar reservas canceladas no dashboard
         },
       },
-      room: {
-        select: {
-          number: true,
+      take: limit,
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        guest: {
+          select: {
+            name: true,
+          },
+        },
+        room: {
+          select: {
+            number: true,
+          },
         },
       },
-    },
-  })
+    })
 
-  return reservations.map((r) => ({
-    id: r.id,
-    guest: r.guest.name,
-    room: r.room.number,
-    checkIn: r.checkIn,
-    checkOut: r.checkOut,
-    status: r.status,
-  }))
+    // Log para debug (apenas em desenvolvimento)
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`📊 getRecentReservations: encontradas ${reservations.length} reservas`)
+    }
+
+    // Filtrar e mapear reservas, garantindo que relacionamentos existam
+    const validReservations = reservations
+      .filter((r) => r.guest && r.room) // Garantir que relacionamentos existam
+      .map((r) => ({
+        id: r.id,
+        guest: r.guest?.name || 'Hóspede desconhecido',
+        room: r.room?.number || 'N/A',
+        checkIn: r.checkIn,
+        checkOut: r.checkOut,
+        status: r.status,
+      }))
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`✅ getRecentReservations: ${validReservations.length} reservas válidas após filtro`)
+    }
+
+    return validReservations
+  } catch (error: any) {
+    console.error('❌ Erro em getRecentReservations:', error)
+    return []
+  }
 }
 
 export async function getTodayReservations() {
-  const today = new Date()
-  const todayStart = startOfDay(today)
-  const todayEnd = endOfDay(today)
+  try {
+    const today = new Date()
+    const todayStart = startOfDay(today)
+    const todayEnd = endOfDay(today)
 
-  const reservations = await prisma.reservation.findMany({
-    where: {
-      status: {
-        not: 'cancelled', // Não mostrar reservas canceladas no dashboard
+    const reservations = await prisma.reservation.findMany({
+      where: {
+        status: {
+          not: 'cancelled', // Não mostrar reservas canceladas no dashboard
+        },
+        OR: [
+          {
+            checkIn: {
+              lte: todayEnd,
+              gte: todayStart,
+            },
+          },
+          {
+            checkOut: {
+              lte: todayEnd,
+              gte: todayStart,
+            },
+          },
+          {
+            AND: [
+              { checkIn: { lte: todayStart } },
+              { checkOut: { gte: todayEnd } },
+            ],
+          },
+        ],
       },
-      OR: [
-        {
-          checkIn: {
-            lte: todayEnd,
-            gte: todayStart,
+      include: {
+        guest: {
+          select: {
+            name: true,
+            phone: true,
           },
         },
-        {
-          checkOut: {
-            lte: todayEnd,
-            gte: todayStart,
+        room: {
+          select: {
+            number: true,
+            name: true,
           },
         },
-        {
-          AND: [
-            { checkIn: { lte: todayStart } },
-            { checkOut: { gte: todayEnd } },
-          ],
-        },
-      ],
-    },
-    include: {
-      guest: {
-        select: {
-          name: true,
-          phone: true,
-        },
       },
-      room: {
-        select: {
-          number: true,
-          name: true,
-        },
+      orderBy: {
+        checkIn: 'asc',
       },
-    },
-    orderBy: {
-      checkIn: 'asc',
-    },
-  })
+    })
 
-  return reservations
+    // Log para debug (apenas em desenvolvimento)
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`📊 getTodayReservations: encontradas ${reservations.length} reservas`)
+    }
+
+    // Filtrar reservas que têm relacionamentos válidos
+    const validReservations = reservations.filter((r) => r.guest && r.room)
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`✅ getTodayReservations: ${validReservations.length} reservas válidas após filtro`)
+    }
+
+    return validReservations
+  } catch (error: any) {
+    console.error('❌ Erro em getTodayReservations:', error)
+    return []
+  }
 }
 
