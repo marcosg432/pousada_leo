@@ -11,10 +11,10 @@ interface Reservation {
   id: string
   guest: {
     name: string
-  }
+  } | null
   room: {
     number: string
-  }
+  } | null
   checkIn: string
   checkOut: string
   status: string
@@ -92,10 +92,16 @@ export default function ReservationsList() {
     }
   }
 
-  const filteredReservations = reservations.filter((reservation) =>
-    reservation.guest.name.toLowerCase().includes(search.toLowerCase()) ||
-    reservation.room.number.toLowerCase().includes(search.toLowerCase())
-  )
+  const filteredReservations = reservations.filter((reservation) => {
+    if (!reservation.guest || !reservation.room) {
+      // Se algum relacionamento estiver quebrado, ainda mostrar a reserva
+      return true
+    }
+    return (
+      reservation.guest.name.toLowerCase().includes(search.toLowerCase()) ||
+      reservation.room.number.toLowerCase().includes(search.toLowerCase())
+    )
+  })
 
   if (loading) {
     return (
@@ -194,11 +200,13 @@ export default function ReservationsList() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
               {filteredReservations.map((reservation) => {
+                // Verificar se é uma nova reserva do site (últimos 7 dias)
+                const createdAt = new Date(reservation.createdAt)
+                const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
                 const isNewSiteReservation =
                   reservation.source === 'site' &&
-                  (reservation.status === 'pending' || reservation.status === 'pending_payment') &&
-                  new Date(reservation.createdAt) >
-                    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Últimos 7 dias
+                  (reservation.status === 'pending' || reservation.status === 'pending_payment' || reservation.status === 'confirmed') &&
+                  createdAt > sevenDaysAgo
 
                 return (
                   <tr
@@ -211,7 +219,7 @@ export default function ReservationsList() {
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <div className="text-xs md:text-sm font-medium text-gray-900">
-                            {reservation.guest.name}
+                            {reservation.guest?.name || 'Hóspede não encontrado'}
                           </div>
                           {isNewSiteReservation && (
                             <span className="px-1.5 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded">
@@ -225,12 +233,14 @@ export default function ReservationsList() {
                           )}
                         </div>
                         <div className="text-xs text-gray-500 sm:hidden">
-                          Quarto {reservation.room.number} • {format(new Date(reservation.checkIn), 'dd/MM/yyyy', { locale: ptBR })}
+                          {reservation.room ? `Quarto ${reservation.room.number}` : 'Quarto não encontrado'} • {format(new Date(reservation.checkIn), 'dd/MM/yyyy', { locale: ptBR })}
                         </div>
                       </div>
                     </td>
                   <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden sm:table-cell">
-                    <div className="text-xs md:text-sm text-gray-900">Quarto {reservation.room.number}</div>
+                    <div className="text-xs md:text-sm text-gray-900">
+                      {reservation.room ? `Quarto ${reservation.room.number}` : 'Quarto não encontrado'}
+                    </div>
                   </td>
                   <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap hidden md:table-cell">
                     <div className="text-xs md:text-sm text-gray-900">
@@ -295,8 +305,8 @@ export default function ReservationsList() {
                         onClick={() =>
                           handleDelete(
                             reservation.id,
-                            reservation.guest.name,
-                            reservation.room.number
+                            reservation.guest?.name || 'Hóspede desconhecido',
+                            reservation.room?.number || 'N/A'
                           )
                         }
                         disabled={deletingId === reservation.id}

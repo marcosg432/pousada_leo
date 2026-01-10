@@ -191,6 +191,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Criar reserva (usar datas com horários aplicados)
+    console.log('📝 Criando reserva com dados:', {
+      ...reservationData,
+      checkIn: checkIn.toISOString(),
+      checkOut: checkOut.toISOString(),
+    })
+    
     const reservation = await prisma.reservation.create({
       data: reservationData,
       include: {
@@ -212,6 +218,15 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    console.log('✅ Reserva criada com sucesso:', {
+      id: reservation.id,
+      status: reservation.status,
+      source: reservation.source,
+      totalPrice: reservation.totalPrice,
+      guest: reservation.guest.name,
+      room: reservation.room.name,
+    })
+
     // Disparar mensagem de reserva criada (aguardando pagamento)
     try {
       const { onReservationCreated } = await import('@/lib/message-service')
@@ -221,7 +236,17 @@ export async function POST(request: NextRequest) {
       // Não falha a criação da reserva se o envio de mensagem falhar
     }
 
-    return NextResponse.json(reservation, { status: 201 })
+    // Formatar resposta para garantir compatibilidade
+    const responseData = {
+      ...reservation,
+      checkIn: reservation.checkIn instanceof Date ? reservation.checkIn.toISOString() : reservation.checkIn,
+      checkOut: reservation.checkOut instanceof Date ? reservation.checkOut.toISOString() : reservation.checkOut,
+      createdAt: reservation.createdAt instanceof Date ? reservation.createdAt.toISOString() : reservation.createdAt,
+      updatedAt: reservation.updatedAt instanceof Date ? reservation.updatedAt.toISOString() : reservation.updatedAt,
+      rulesAcceptedAt: reservation.rulesAcceptedAt instanceof Date ? reservation.rulesAcceptedAt.toISOString() : reservation.rulesAcceptedAt,
+    }
+
+    return NextResponse.json(responseData, { status: 201 })
   } catch (error: any) {
     console.error('Error creating reservation:', error)
     
