@@ -146,6 +146,16 @@ export default function ReservationsList() {
               className="w-full pl-9 md:pl-10 pr-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
+          <button 
+            onClick={fetchReservations}
+            className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm md:text-base"
+            title="Atualizar lista de reservas"
+          >
+            <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Atualizar</span>
+          </button>
           <button className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm md:text-base">
             <Filter className="w-4 h-4 md:w-5 md:h-5" />
             <span>Filtros</span>
@@ -159,12 +169,20 @@ export default function ReservationsList() {
             {search ? 'Nenhuma reserva encontrada' : 'Nenhuma reserva cadastrada'}
           </p>
           {!search && (
-            <Link
-              href="/admin/reservas/nova"
-              className="inline-block text-primary hover:text-primary-dark font-medium"
-            >
-              Criar primeira reserva →
-            </Link>
+            <div className="space-y-2">
+              <Link
+                href="/admin/reservas/nova"
+                className="inline-block text-primary hover:text-primary-dark font-medium mr-4"
+              >
+                Criar primeira reserva →
+              </Link>
+              <button
+                onClick={fetchReservations}
+                className="inline-block text-gray-600 hover:text-gray-800 font-medium border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50"
+              >
+                Atualizar lista
+              </button>
+            </div>
           )}
         </div>
       ) : (

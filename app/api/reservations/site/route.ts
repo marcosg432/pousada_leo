@@ -248,25 +248,41 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(responseData, { status: 201 })
   } catch (error: any) {
-    console.error('Error creating reservation:', error)
+    console.error('❌ Error creating reservation:', error)
+    console.error('Error code:', error.code)
+    console.error('Error message:', error.message)
+    console.error('Error stack:', error.stack)
     
     // Retornar mensagem de erro mais específica
     let errorMessage = 'Erro ao criar reserva'
+    let statusCode = 500
     
     if (error.code === 'P2002') {
       errorMessage = 'Já existe uma reserva com esses dados'
+      statusCode = 409
     } else if (error.code === 'P2003') {
       errorMessage = 'Quarto ou hóspede não encontrado'
+      statusCode = 404
     } else if (error.message) {
       errorMessage = error.message
+    }
+    
+    // Em produção, também logar detalhes completos
+    if (process.env.NODE_ENV === 'production') {
+      console.error('Detalhes completos do erro:', {
+        code: error.code,
+        message: error.message,
+        meta: error.meta,
+      })
     }
     
     return NextResponse.json(
       { 
         error: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        code: error.code || 'UNKNOWN_ERROR'
       },
-      { status: 500 }
+      { status: statusCode }
     )
   }
 }
