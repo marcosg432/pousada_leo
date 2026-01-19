@@ -1,4 +1,4 @@
-import Header from '@/components/site/Header'
+﻿import Header from '@/components/site/Header'
 import Footer from '@/components/site/Footer'
 import WhatsAppButton from '@/components/site/WhatsAppButton'
 import ImageCarousel from '@/components/site/ImageCarousel'
@@ -37,17 +37,15 @@ export default function QuartosPage() {
       price: 200,
       capacity: 6,
       amenities: ['WiFi gratuito', 'TV com Netflix', 'Ar condicionado', 'Ventilador', 'Frigobar', 'Micro-ondas', 'Banheiro privativo', 'Chuveiro quente', 'Lençóis', 'Toalhas', 'Travesseiros', 'Cobertas'],
-      image: '/rooms/suite-2/suite-2-4.jpeg',
+      image: '/rooms/suite-2/suite-2-1.jpeg',
       images: [
-        '/rooms/suite-2/suite-2-4.jpeg',
+        '/rooms/suite-2/suite-2-1.jpeg',
         '/rooms/suite-2/suite-2-2.jpeg',
         '/rooms/suite-2/suite-2-3.jpeg',
+        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-5.jpeg',
         '/rooms/suite-2/suite-2-6.jpeg',
-        '/rooms/suite-2/suite-2-7.jpeg',
         '/rooms/suite-2/suite-2-8.jpeg',
-        '/rooms/suite-2/suite-2-9.jpeg',
-        '/rooms/suite-2/suite-2-10.jpeg',
         '/rooms/suite-2/suite-2-11.jpeg',
         '/rooms/suite-2/suite-2-12.jpeg',
       ],

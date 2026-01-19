@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Bed, Users, Wifi, ArrowRight, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
@@ -36,18 +36,15 @@ export default function RoomsPreview() {
       price: 200,
       capacity: 6,
       amenities: ['WiFi', 'TV com Netflix', 'Ar condicionado', 'Ventilador', 'Frigobar', 'Micro-ondas'],
-      image: '/rooms/suite-2/suite-2-4.jpeg',
+      image: '/rooms/suite-2/suite-2-1.jpeg',
       images: [
-        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-1.jpeg',
         '/rooms/suite-2/suite-2-2.jpeg',
         '/rooms/suite-2/suite-2-3.jpeg',
+        '/rooms/suite-2/suite-2-4.jpeg',
         '/rooms/suite-2/suite-2-5.jpeg',
         '/rooms/suite-2/suite-2-6.jpeg',
-        '/rooms/suite-2/suite-2-7.jpeg',
         '/rooms/suite-2/suite-2-8.jpeg',
-        '/rooms/suite-2/suite-2-9.jpeg',
-        '/rooms/suite-2/suite-2-10.jpeg',
         '/rooms/suite-2/suite-2-11.jpeg',
         '/rooms/suite-2/suite-2-12.jpeg',
       ],

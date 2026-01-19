@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Header from '@/components/site/Header'
@@ -12,16 +12,12 @@ export default function GaleriaPage() {
 
   const images = [
     { id: 1, src: '/locais-turisticos/praia-de-santo-antonio.jpg', alt: 'Praia de Santo Antônio', category: 'Praias' },
-    { id: 2, src: '/locais-turisticos/clube-nautico-dos-mangaras.webp', alt: 'Clube Náutico dos Mangaras', category: 'Pontos Turísticos' },
     { id: 3, src: '/locais-turisticos/praia-de-taperinha.webp', alt: 'Praia de Taperinha', category: 'Praias' },
     { id: 4, src: '/locais-turisticos/praia-do-guity.webp', alt: 'Praia do Guity', category: 'Praias' },
     { id: 5, src: '/locais-turisticos/Praia-Brava.jpg', alt: 'Praia Brava', category: 'Praias' },
     { id: 6, src: '/locais-turisticos/praia-do-saco.jpg', alt: 'Praia do Saco', category: 'Praias' },
-    { id: 7, src: '/locais-turisticos/praia-da-ribeira.jpg', alt: 'Praia da Ribeira', category: 'Praias' },
-    { id: 8, src: '/locais-turisticos/praia-da-junqueira.jpg', alt: 'Praia da Junqueira', category: 'Praias' },
-    { id: 9, src: '/locais-turisticos/praia-do-sahy.jpg', alt: 'Praia do Sahy', category: 'Praias' },
-    { id: 10, src: '/locais-turisticos/praia-grande.jpg', alt: 'Praia Grande', category: 'Praias' },
-    { id: 11, src: '/locais-turisticos/cachoeiras-de-ingaibe.jpg', alt: 'Cachoeiras de Ingaíbe', category: 'Pontos Turísticos' },
+    { id: 7, src: '/locais-turisticos/praia-da-ribeira.jpg', alt: 'Praia de Taperinha', category: 'Praias' },
+    { id: 11, src: '/locais-turisticos/cachoeiras-de-ingaibe.jpg', alt: 'Cachoeira véu da noiva', category: 'Pontos Turísticos' },
     { id: 12, src: '/locais-turisticos/cais-mangaratiba.jpg', alt: 'Cais de Mangaratiba', category: 'Pontos Turísticos' },
   ]
 
